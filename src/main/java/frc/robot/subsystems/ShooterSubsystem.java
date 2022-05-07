@@ -56,7 +56,7 @@ public class ShooterSubsystem extends SubsystemBase {
 
   public void manualShoot() {
     // Obtain the manual shooter speed from the dashboard. If it can't, default to the ShooterConstants value.
-    manualRPM = SmartDashboard.getNumber("Manual Shooter Speed ", ShooterConstants.manualShooterSpeedRPM);
+    manualRPM = ShooterConstants.manualShooterSpeedRPM;
 
     targetSpeed = (manualRPM*2048)/600;
     shooterMotor.set(ControlMode.Velocity, targetSpeed);

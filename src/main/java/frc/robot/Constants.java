@@ -103,7 +103,7 @@ public final class Constants {
     public static int shooterMotorChannel = 2;
     public static double shooterMotorVoltage = 11.0;
 
-    public static double manualShooterSpeedRPM = 1500;
+    public static double manualShooterSpeedRPM = 5000;
     public static double discardSpeedRPM = 1500.0;
     // a(x) + b
     public static double EquationAdjustA = 0;
