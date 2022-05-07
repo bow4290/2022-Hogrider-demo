@@ -1,0 +1,62 @@
+<xml version="1.0">
+<dashboard>
+	<widget field="Intake Status: " type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="0" y="63"/>
+	</widget>
+	<widget field="Has a target? " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="654" y="0"/>
+		<width>165</width>
+		<height>111</height>
+	</widget>
+	<widget field="Is Turret Ready? " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="457" y="0"/>
+		<width>192</width>
+		<height>112</height>
+	</widget>
+	<widget field="Drive GEAR " type="String" class="edu.wpi.first.smartdashboard.gui.elements.FormattedField">
+		<location x="858" y="5"/>
+		<width>263</width>
+		<height>110</height>
+		<property name="Font Size" value="76"/>
+	</widget>
+	<widget field="Is Shooter Ready? " type="Boolean" class="edu.wpi.first.smartdashboard.gui.elements.BooleanBox">
+		<location x="252" y="0"/>
+		<width>192</width>
+		<height>112</height>
+	</widget>
+	<widget field="SendableChooser[0]" type="String Chooser" class="edu.wpi.first.smartdashboard.gui.elements.Chooser">
+		<location x="40" y="205"/>
+	</widget>
+	<widget field="limelight_Stream" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="22"/>
+	</widget>
+	<widget field="Distance " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="19" y="140"/>
+	</widget>
+	<widget field="X Error " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="25" y="96"/>
+		<height>19</height>
+	</widget>
+	<widget field="Y Error " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="26" y="118"/>
+		<height>19</height>
+	</widget>
+	<widget field="limelight_Interface" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="43"/>
+	</widget>
+	<widget field="limelight_PipelineName" type="String" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="3" y="2"/>
+	</widget>
+	<widget field="Manual Shooter Speed " type="Number" class="edu.wpi.first.smartdashboard.gui.elements.TextBox">
+		<location x="243" y="114"/>
+	</widget>
+	<static-widget class="edu.wpi.first.smartdashboard.gui.elements.CameraServerViewer">
+		<location x="692" y="124"/>
+		<width>685</width>
+		<height>430</height>
+		<property name="Camera Choice" value="limelight"/>
+	</static-widget>
+</dashboard>
+<live-window>
+</live-window>
+</xml>
