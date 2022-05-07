@@ -56,19 +56,6 @@ public class RobotContainer {
   public BallIdentification ballUpper;
   public BallIdentification ballLower;
 
-  private Command AutoDriveCollectAndShoot2;
-  private Command AutoDriveCollectAndShoot;
-  private Command AutoDriveAndShoot;
-  private Command AutoDriveAndCollect;
-  private Command AutoDriveOnly;
-  private Command AutoCrossCountry;
-  private Command AutoFunkyFourBallOnly;
-  private Command AutoNothing;
-  private Command AutoPlop;
-  private Command AutoTestingOnly;
-
-  SendableChooser<Command> chooser = new SendableChooser<>();
-
   public RobotContainer() {
     if (Flags.drivetrain) {
       drivetrainSubsystem = new DrivetrainSubsystem();
@@ -80,7 +67,7 @@ public class RobotContainer {
       intakeSubsystem.setDefaultCommand(new DefaultIntakeInCommand(() -> xboxController.getLeftTriggerAxis(), intakeSubsystem));
     }
 
-      shooterSubsystem = new ShooterSubsystem();
+    shooterSubsystem = new ShooterSubsystem();
 
 
     if (Flags.indexer) {
@@ -101,20 +88,7 @@ public class RobotContainer {
 
     if (Flags.elevator) elevatorSubsystem = new ElevatorSubsystem();
 
-    autoCommands();
     shooterSubsystem.setDefaultCommand(new DefaultShootHighCommand(() -> xboxController.getRightTriggerAxis(), limelight, shooterSubsystem, turretSubsystem));
-
-    chooser.setDefaultOption("3-Ball High Auto", AutoDriveCollectAndShoot2);
-    chooser.addOption("2-Ball High Auto", AutoDriveCollectAndShoot);
-    chooser.addOption("1-Ball High Auto", AutoDriveAndShoot);
-    chooser.addOption("1-Ball Low Auto", AutoPlop);
-    chooser.addOption("Drive and Collect", AutoDriveAndCollect);
-    chooser.addOption("Drive Only", AutoDriveOnly);
-    // chooser.addOption("Cross Country", AutoCrossCountry);
-    // chooser.addOption("4-Ball High Auto", AutoFunkyFourBallOnly);
-    chooser.addOption("Do Nothing", AutoNothing);
-    // chooser.addOption("TESTING ONLY", AutoTestingOnly);
-    SmartDashboard.putData(chooser);
 
     configureButtonBindings();
   }
@@ -183,188 +157,6 @@ public class RobotContainer {
 
   private void setXboxControllerButtonWhenHeld(XboxController xboxController, int button, CommandBase command) {
     new JoystickButton(xboxController, button).whenHeld(command);
-  }
-
-  private void autoCommands(){
-    AutoPlop = 
-    new SequentialCommandGroup(
-      new ToggleTurretCommand(turretSubsystem),
-      new ParallelRaceGroup(
-          new ShootDiscard(shooterSubsystem),
-          new WaitCommand(5)
-        )
-      // new AutoDriveForDistanceCommand(drivetrainSubsystem, -60)
-      // it doesnt work like that :(
-    );
-
-    AutoDriveCollectAndShoot2 = 
-      new SequentialCommandGroup(
-        new ShiftGearDown(drivetrainSubsystem),
-        new DisableTurretCommand(turretSubsystem),
-        new IntakeDown(intakeSubsystem),
-        new ShiftGearDown(drivetrainSubsystem),
-        new ParallelRaceGroup(
-          new AutoDriveForDistanceCommand(drivetrainSubsystem, 40),
-          new IntakeIn(intakeSubsystem)
-        ),
-        new WaitCommand(0.20),
-        new ParallelRaceGroup(
-          new AutoTurnRightAngleCommand(drivetrainSubsystem, (90.0 + 35 + 30.0)),
-          new IntakeIn(intakeSubsystem)
-        ),
-        new EnableTurretCommand(turretSubsystem),
-        new WaitCommand(0.20),
-        new ParallelRaceGroup(
-          new ShootHigh(limelight, shooterSubsystem, turretSubsystem),
-          new WaitCommand(3.25)
-        ),
-        new DisableTurretCommand(turretSubsystem),
-        new AutoTurnLeftAngleCommand(drivetrainSubsystem, 30.0),
-            new ParallelRaceGroup(
-                new SequentialCommandGroup(
-                    new AutoDriveForDistanceCommand(drivetrainSubsystem, (117 + 6)),
-                    new WaitCommand(0.20),
-                    // (whatever (the + math)) + don't_care
-                    new AutoTurnRightAngleCommand(drivetrainSubsystem, (210.0 - (90.0 + 22.5)) + 20.0),
-                    new EnableTurretCommand(turretSubsystem)
-                    ),
-                new IntakeIn(intakeSubsystem)),
-        new ParallelRaceGroup(
-                        new ShootHigh(limelight, shooterSubsystem, turretSubsystem),
-                        new WaitCommand(4)),
-        new AutoTurnLeftAngleCommand(drivetrainSubsystem, 120),
-        new AutoDriveForDistanceCommand(drivetrainSubsystem, 13 * 12)
-      );
-    
-    AutoDriveCollectAndShoot = 
-    new SequentialCommandGroup(
-      new ShiftGearDown(drivetrainSubsystem),
-      new DisableTurretCommand(turretSubsystem),
-      new IntakeDown(intakeSubsystem),    
-      new ShiftGearDown(drivetrainSubsystem),
-      new ParallelRaceGroup(
-        new AutoDriveForDistanceCommand(drivetrainSubsystem, 40), // used to be 40, did not go quite far enough
-        new IntakeIn(intakeSubsystem)
-      ),
-      new WaitCommand(0.20),
-      new ParallelRaceGroup(
-        new AutoTurnRightAngleCommand(drivetrainSubsystem, (150)),     
-        new IntakeIn(intakeSubsystem)
-      ),
-      new EnableTurretCommand(turretSubsystem),
-      new WaitCommand(0.20),
-      new ParallelRaceGroup(
-        new ShootHigh(limelight, shooterSubsystem, turretSubsystem),
-        new WaitCommand(5)
-      )
-    );
-
-    AutoDriveAndShoot =
-      new SequentialCommandGroup(
-        new ShiftGearDown(drivetrainSubsystem),
-        new DisableTurretCommand(turretSubsystem),
-        new AutoDriveForDistanceCommand(drivetrainSubsystem, 40),
-        new AutoTurnLeftAngleCommand(drivetrainSubsystem, 180),
-        new EnableTurretCommand(turretSubsystem),
-        new ParallelRaceGroup(
-          new ShootHigh(limelight, shooterSubsystem, turretSubsystem),
-          new WaitCommand(5)
-        )
-      );
-    
-    AutoDriveAndCollect =
-      new SequentialCommandGroup(
-        new ShiftGearDown(drivetrainSubsystem),
-        new DisableTurretCommand(turretSubsystem),
-        new IntakeDown(intakeSubsystem),
-        new ParallelRaceGroup(
-          new AutoDriveForDistanceCommand(drivetrainSubsystem, 40),
-          new IntakeIn(intakeSubsystem)
-        )
-      );
-    
-    AutoDriveOnly =
-      new SequentialCommandGroup(
-        new ShiftGearDown(drivetrainSubsystem),
-        new DisableTurretCommand(turretSubsystem),
-        new AutoDriveForDistanceCommand(drivetrainSubsystem, 40)
-      );
-
-    AutoCrossCountry = new SequentialCommandGroup(new ShiftGearDown(drivetrainSubsystem),
-        new DisableTurretCommand(turretSubsystem),
-        new IntakeDown(intakeSubsystem),
-        new ParallelRaceGroup(
-            new AutoDriveForDistanceCommand(drivetrainSubsystem, 40),
-            new IntakeIn(intakeSubsystem)),
-        new AutoTurnLeftAngleCommand(drivetrainSubsystem, 180),
-        new EnableTurretCommand(turretSubsystem),
-        new ParallelRaceGroup(new ShootHigh(limelight, shooterSubsystem, turretSubsystem), new WaitCommand(5.0)),
-        new DisableTurretCommand(turretSubsystem),
-        new AutoTurnLeftAngleCommand(drivetrainSubsystem, 50),
-        new ParallelCommandGroup(new SequentialCommandGroup(
-            new ParallelRaceGroup(new AutoDriveForDistanceCommand(drivetrainSubsystem, 40),
-                new IntakeIn(intakeSubsystem)),
-            new AutoTurnRightAngleCommand(drivetrainSubsystem, 80)),
-            new ShootDiscard(shooterSubsystem)
-                .until(() -> ballUpper.getBallColor() == BallIdentification.getAllianceColor())),
-        new EnableTurretCommand(turretSubsystem),
-        new ParallelRaceGroup(new ShootHigh(limelight, shooterSubsystem, turretSubsystem), new WaitCommand(5.0)));
-
-    AutoFunkyFourBallOnly =
-      new SequentialCommandGroup(
-        new ShiftGearDown(drivetrainSubsystem),
-        new DisableTurretCommand(turretSubsystem),
-        new IntakeDown(intakeSubsystem),
-        new ParallelRaceGroup(
-          new AutoDriveForDistanceCommand(drivetrainSubsystem, 40),
-          new IntakeIn(intakeSubsystem)
-        ),
-        new WaitCommand(0.20),
-        new EnableTurretCommand(turretSubsystem),
-        new ParallelRaceGroup(
-          new AutoTurnRightAngleCommand(drivetrainSubsystem, (90.0 + 35.0 + 25.0)),
-          new IntakeIn(intakeSubsystem)
-        ),
-        new WaitCommand(0.20),
-        new ParallelRaceGroup(
-          new ShootHigh(limelight, shooterSubsystem, turretSubsystem),
-          new WaitCommand(2.75)
-        ),
-        new DisableTurretCommand(turretSubsystem),
-        new AutoTurnLeftAngleCommand(drivetrainSubsystem, 25),
-        new ParallelRaceGroup(
-          new AutoDriveForDistanceCommand(drivetrainSubsystem, (117+6)),
-          new IntakeIn(intakeSubsystem)
-        ),
-        new WaitCommand(0.20),
-        new AutoTurnLeftAngleCommand(drivetrainSubsystem, 82.5),
-        new ParallelRaceGroup(
-          new AutoDriveForDistanceCommand(drivetrainSubsystem, 90),
-          new IntakeIn(intakeSubsystem)
-        )
-        //new EnableTurretCommand(turretSubsystem),
-        // new ParallelRaceGroup(
-        //   new ShootHigh(limelight, shooterSubsystem, turretSubsystem),
-        //   new WaitCommand(5)
-        // )
-      );
-    
-    AutoNothing = 
-      null;
-
-    AutoTestingOnly = 
-    null;
-  }
-
-  public Command getAutonomousCommand() {
-    return chooser.getSelected();
-  }
-
-  public Command teleopInitCommands(){
-    return new ParallelCommandGroup(
-            // new IntakeUp(inqtakeSubsystem),
-            new ShiftGearDown(drivetrainSubsystem)
-           );
   }
 
   public void periodic() {

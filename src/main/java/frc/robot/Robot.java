@@ -6,7 +6,6 @@ import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.subsystems.DrivetrainSubsystem;
 
 public class Robot extends TimedRobot {
-  private Command autonomousCommand;
   private RobotContainer robotContainer;
 
   @Override
@@ -33,13 +32,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    autonomousCommand = robotContainer.getAutonomousCommand();
-    
-    // if (autonomousCommand != null) {
-      robotContainer.turretSubsystem.isTurretStopped = false;   // Enable the turret during autonomous
-      DrivetrainSubsystem.forceCorrectEncoderResets = true;
-      autonomousCommand.schedule();
-    // }
   }
 
   @Override
@@ -48,14 +40,7 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    if (autonomousCommand != null) {
-      autonomousCommand.cancel();
-    }
-
     robotContainer.turretSubsystem.isTurretStopped = true;      // Disable the turret when teleop begins
-    robotContainer.turretSubsystem.homingPosition = 0;
-    DrivetrainSubsystem.forceCorrectEncoderResets = false;
-    robotContainer.teleopInitCommands().schedule();
   }
 
   @Override
