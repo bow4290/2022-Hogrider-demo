@@ -28,11 +28,10 @@ public class DefaultIntakeInCommand extends CommandBase {
     } else {
       intakeSubsystem.intakeSpin(0);
     }
-
   }
 
   @Override
-  public void end(boolean interrupted) { 
+  public void end(boolean interrupted) {
   }
 
   @Override

@@ -14,7 +14,6 @@ public class BallIdentification implements Sendable {
 
   public static enum Color { RED, BLUE, NEITHER }
 
-  // TODO: why does this need to be a static class
   public static class Threshold {
     public final double redLow, redHigh, blueLow, blueHigh;
 

@@ -8,7 +8,7 @@ public class IntakeStop extends CommandBase {
 
   public IntakeStop(IntakeSubsystem intakeSubsystem) {
     this.intakeSubsystem = intakeSubsystem;
-    
+
     addRequirements(intakeSubsystem);
   }
 

@@ -3,7 +3,6 @@ package frc.robot.subsystems;
 import com.ctre.phoenix.motorcontrol.can.WPI_VictorSPX;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
-import frc.robot.Constants.Flags;
 import frc.robot.Constants.IndexerConstants;
 
 public class IndexerSubsystem extends SubsystemBase {
@@ -11,8 +10,6 @@ public class IndexerSubsystem extends SubsystemBase {
   private WPI_VictorSPX lowerIndexMotor;
 
   public IndexerSubsystem(){
-    if (!Flags.indexer) throw new Error("Indexer flag must be set to create an IndexerSubsystem!");
-    
     upperIndexMotor = new WPI_VictorSPX(IndexerConstants.upperIndexMotorChannel);
     lowerIndexMotor = new WPI_VictorSPX(IndexerConstants.lowerIndexMotorChannel);
 
@@ -36,9 +33,5 @@ public class IndexerSubsystem extends SubsystemBase {
 
   public void turnLowerIndexMotor(double lowerIndexSpeed){
     lowerIndexMotor.set(ControlMode.PercentOutput, lowerIndexSpeed);
-  }
-
-  @Override
-  public void periodic() {
   }
 }

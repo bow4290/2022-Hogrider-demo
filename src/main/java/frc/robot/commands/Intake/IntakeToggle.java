@@ -9,7 +9,7 @@ public class IntakeToggle extends CommandBase {
 
   public IntakeToggle(IntakeSubsystem intakeSubsystem) {
     this.intakeSubsystem = intakeSubsystem;
-    
+
     addRequirements(intakeSubsystem);
   }
 

@@ -25,7 +25,6 @@ public class TurretCommand extends CommandBase {
 
   @Override
   public void initialize() {
-    //if (Flags.turret) m_robotContainer.turretSubsystem.encoder.setPosition(0);
   }
 
   @Override

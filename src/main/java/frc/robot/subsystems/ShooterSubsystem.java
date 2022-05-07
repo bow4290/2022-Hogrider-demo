@@ -33,11 +33,6 @@ public class ShooterSubsystem extends SubsystemBase {
     shooterMotor.config_kP(0, ShooterConstants.kP);
     shooterMotor.config_kI(0, ShooterConstants.kI);
     shooterMotor.config_kD(0, ShooterConstants.kD);
-
-    // SmartDashboard.putNumber("Manual Shooter Speed ", manualRPM);
-    // SmartDashboard.putNumber("kP", 0.0);
-    // SmartDashboard.putNumber("kI", ShooterConstants.kI);
-    // SmartDashboard.putNumber("kD", 0.0);
   }
 
   /* SparkMAX motor controllers require a weird velocity unit.
@@ -89,13 +84,5 @@ public class ShooterSubsystem extends SubsystemBase {
     } else {
       thresholdLoops = 0;
     }
-
-    //SmartDashboard.putNumber("Shooter Commanded Speed", targetSpeed);
-    // SmartDashboard.putNumber("Shooter Actual Speed", getShooterRPM());
-    // SmartDashboard.putBoolean("Is Shooter Ready? ", isShooterReady());
-    
-    // shooterMotor.config_kP(0, SmartDashboard.getNumber("kP", 0.0));
-    // shooterMotor.config_kI(0, SmartDashboard.getNumber("kI", 0.0001));
-    // shooterMotor.config_kD(0, SmartDashboard.getNumber("kD", 0.0));
   }
 }

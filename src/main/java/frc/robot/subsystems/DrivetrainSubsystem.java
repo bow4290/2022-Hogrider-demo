@@ -11,11 +11,8 @@ import com.ctre.phoenix.motorcontrol.InvertType;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.TalonFXInvertType;
 import frc.robot.Constants.DriveConstants;
-import frc.robot.Constants.Flags;
 
 public class DrivetrainSubsystem extends SubsystemBase {
-  public static Boolean forceCorrectEncoderResets = false;
-
   private WPI_TalonFX leftMotor1 = new WPI_TalonFX(DriveConstants.leftMotor1Channel);
   private WPI_TalonFX leftMotor2 = new WPI_TalonFX(DriveConstants.leftMotor2Channel);
   private WPI_TalonFX rightMotor1 = new WPI_TalonFX(DriveConstants.rightMotor1Channel);
@@ -28,8 +25,6 @@ public class DrivetrainSubsystem extends SubsystemBase {
   private static GearShiftPosition gearShiftPosition;
 
   public DrivetrainSubsystem() {
-    if (!Flags.drivetrain) throw new Error("Drivetrain flag must be set to create a DrivetrainSubsystem!");
-
     leftMotor1.setInverted(TalonFXInvertType.CounterClockwise);
     leftMotor2.follow(leftMotor1);
     leftMotor2.setInverted(InvertType.FollowMaster);
@@ -75,14 +70,8 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void resetDriveEncoders() {
-    // Just in case this is what's causing the back-and-forth drivetrain, let's disable it during teleop.
-    if (forceCorrectEncoderResets) {
-      do { leftMotor1.setSelectedSensorPosition(0); } while (Math.abs(getLeftCalculatedPosition()) > 0.5);
-      do { rightMotor1.setSelectedSensorPosition(0); } while (Math.abs(getRightCalculatedPosition()) > 0.5);
-    } else {
-      leftMotor1.setSelectedSensorPosition(0);
-      rightMotor1.setSelectedSensorPosition(0);
-    }
+    leftMotor1.setSelectedSensorPosition(0);
+    rightMotor1.setSelectedSensorPosition(0);
   }
 
   public GearShiftPosition getGearShiftPosition() {
@@ -90,12 +79,14 @@ public class DrivetrainSubsystem extends SubsystemBase {
   }
 
   public void shiftDown() {
-    gearShiftSolenoid.set(DoubleSolenoid.Value.kForward);  // kForward is DOWN
+    // kForward is DOWN
+    gearShiftSolenoid.set(DoubleSolenoid.Value.kForward);
     gearShiftPosition = GearShiftPosition.DOWN;
   }
 
   public void shiftUp() {
-    gearShiftSolenoid.set(DoubleSolenoid.Value.kReverse);  // kReverse is UP
+    // kReverse is UP
+    gearShiftSolenoid.set(DoubleSolenoid.Value.kReverse);
     gearShiftPosition = GearShiftPosition.UP;
   }
 

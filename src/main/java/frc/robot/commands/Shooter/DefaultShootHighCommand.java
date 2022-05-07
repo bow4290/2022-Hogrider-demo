@@ -19,7 +19,7 @@ public class DefaultShootHighCommand extends CommandBase {
     this.limelight = limelight;
     this.shooterSubsystem = shooterSubsystem;
     this.turretSubsystem = turretSubsystem;
-    
+
     addRequirements(shooterSubsystem);
   }
 

@@ -33,23 +33,21 @@ public class DefaultIndexerCommand extends CommandBase {
   @Override
   public void execute() {
     if(shooterSubsystem.isShooterReady()) {
-      indexerSubsystem.turnBothIndexMotors(IndexerConstants.upperShootingIndexSpeed, IndexerConstants.lowerShootingIndexSpeed);
       // When shooting, turn both motors at their specified shoot speeds.
-
+      indexerSubsystem.turnBothIndexMotors(IndexerConstants.upperShootingIndexSpeed, IndexerConstants.lowerShootingIndexSpeed);
     } else if (intakeSubsystem.isIntakeSpinning()) {
       if (!ballUpper.isBallPresent()) {
-        indexerSubsystem.turnBothIndexMotors(IndexerConstants.upperIntakingIndexSpeed, IndexerConstants.lowerIntakingIndexSpeed);
         // If no ball is present at the upper sensor, turn both motors until the ball is present at the upper sensor.
-      
+        indexerSubsystem.turnBothIndexMotors(IndexerConstants.upperIntakingIndexSpeed, IndexerConstants.lowerIntakingIndexSpeed);
       } else if (ballUpper.isBallPresent() && !ballLower.isBallPresent()) {
-        indexerSubsystem.turnBothIndexMotors(0, IndexerConstants.lowerIntakingIndexSpeed);
         // If ball is at upper ssensor and not lower sensor, stop upper motor and turn lower motor until ball is at the lower sensor.
-
+        indexerSubsystem.turnBothIndexMotors(0, IndexerConstants.lowerIntakingIndexSpeed);
       } else {
         indexerSubsystem.turnBothIndexMotors(0, 0);
       }
     } else {
-      indexerSubsystem.turnBothIndexMotors(0, 0);     // If not shooting and not intaking, turn motors off.
+      // If not shooting and not intaking, turn motors off.
+      indexerSubsystem.turnBothIndexMotors(0, 0);
     }
   }
 

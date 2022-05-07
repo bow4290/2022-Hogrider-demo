@@ -94,7 +94,6 @@ public class RobotContainer {
 
     setXboxControllerButtonWhenHeld(xboxController, 4, new ElevatorUpCommand(elevatorSubsystem));
     setXboxControllerButtonWhenHeld(xboxController, 1, new ElevatorDownCommand(elevatorSubsystem));
-    setXboxControllerButtonWhenHeld(xboxController, 3, new ArmToggle(elevatorSubsystem));
 
     setXboxControllerButtonWhenHeld(xboxController, 2, new ShootManual(shooterSubsystem));
   }

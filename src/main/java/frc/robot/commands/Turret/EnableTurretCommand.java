@@ -8,8 +8,6 @@ public class EnableTurretCommand extends CommandBase {
 
   public EnableTurretCommand(TurretSubsystem turretSubsystem) {
     this.turretSubsystem = turretSubsystem;
-
-    // addRequirements(turretSubsystem);
   }
 
   @Override

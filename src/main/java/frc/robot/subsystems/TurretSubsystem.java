@@ -7,7 +7,6 @@ import com.revrobotics.RelativeEncoder;
 import com.revrobotics.CANSparkMax.FaultID;
 import com.revrobotics.CANSparkMax.IdleMode;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
-import frc.robot.Constants.Flags;
 import frc.robot.Constants.TurretConstants;
 import frc.robot.sensors.Limelight;
 
@@ -17,13 +16,8 @@ public class TurretSubsystem extends SubsystemBase {
   private Limelight limelight;
   public boolean isTurretStopped = false;
   public double homingPosition = 0;
-  // private SparkMaxPIDController pid;
-
-  // private double kP, kI, kD, kF, kMaxOutput, kMinOutput, setpoint;
 
   public TurretSubsystem(Limelight limelight) {
-    if (!Flags.turret) throw new Error("Turret flag must be set to create a TurretSubsystem!");
-
     this.limelight = limelight;
 
     motor = new CANSparkMax(TurretConstants.deviceID, MotorType.kBrushless);
@@ -38,8 +32,6 @@ public class TurretSubsystem extends SubsystemBase {
 
     motor.setSoftLimit(CANSparkMax.SoftLimitDirection.kForward, TurretConstants.forwardRotations);
     motor.setSoftLimit(CANSparkMax.SoftLimitDirection.kReverse, TurretConstants.reverseRotations);
-
-    // pid = motor.getPIDController();
 
     encoder = motor.getEncoder();
     encoder.setPosition(0);
@@ -61,7 +53,7 @@ public class TurretSubsystem extends SubsystemBase {
   }
 
   public boolean isTurretReady(){
-    return (limelight.isTarget() && (Math.abs(limelight.getXErrorWithOffset(TurretConstants.aimOffsetDistance)) < 3)); // was 2.5
+    return (limelight.isTarget() && (Math.abs(limelight.getXErrorWithOffset(TurretConstants.aimOffsetDistance)) < 3));
   }
 
   @Override

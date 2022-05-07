@@ -8,7 +8,7 @@ public class IntakeDown extends CommandBase {
 
   public IntakeDown(IntakeSubsystem intakeSubsystem) {
     this.intakeSubsystem = intakeSubsystem;
-    
+
     addRequirements(intakeSubsystem);
   }
 

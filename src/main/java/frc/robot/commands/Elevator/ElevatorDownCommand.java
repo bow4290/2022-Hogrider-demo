@@ -23,7 +23,7 @@ public class ElevatorDownCommand extends CommandBase {
 
     if (elevatorSubsystem.getEncoderposition() <= ElevatorConstants.reverseSoftLimit) {
       elevatorSubsystem.stopElevator();
-    } else {    
+    } else {
       elevatorSubsystem.retractElevator(ElevatorConstants.elevatorSpeed);
     }
   }

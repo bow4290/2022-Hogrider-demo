@@ -22,7 +22,7 @@ public class ManualIndexerCommand extends CommandBase {
   }
 
   @Override
-  public void end(boolean interrupted) {    
+  public void end(boolean interrupted) {
     indexerSubsystem.turnBothIndexMotors(0, 0);
   }
 
